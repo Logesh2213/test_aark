@@ -87,7 +87,7 @@ export default function AdminRound1APage() {
     syncRound1AWithServer();
     const interval = setInterval(() => {
       syncRound1AWithServer();
-    }, 500);
+    }, 3000); // Reduced from 500ms to 3000ms (3 seconds)
     return () => clearInterval(interval);
   }, []);
   

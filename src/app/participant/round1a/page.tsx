@@ -51,7 +51,7 @@ export default function ParticipantRound1APage() {
     syncRound1AWithServer();
     const syncInterval = setInterval(() => {
       syncRound1AWithServer();
-    }, 400);
+    }, 3000); // Reduced from 400ms to 3000ms (3 seconds)
 
     return () => clearInterval(syncInterval);
   }, []);

@@ -46,7 +46,7 @@ export default function ParticipantDashboardPage() {
     const interval = setInterval(() => {
       syncRound1AWithServer();
       syncRound1BWithServer();
-    }, 1000);
+    }, 3000); // Reduced from 1000ms to 3000ms (3 seconds)
     return () => clearInterval(interval);
   }, []);
   

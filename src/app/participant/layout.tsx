@@ -25,7 +25,7 @@ export default function ParticipantLayout({
     const interval = setInterval(() => {
       syncRound1AWithServer();
       syncRound1BWithServer();
-    }, 400);
+    }, 3000); // Reduced from 400ms to 3000ms (3 seconds)
     return () => clearInterval(interval);
   }, []);
 
