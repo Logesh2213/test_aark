@@ -16,6 +16,8 @@ export default function ParticipantDashboardPage() {
   const zones = useStore((state) => state.zones);
   const round1AState = useStore((state) => state.round1AState);
   const round1BState = useStore((state) => state.round1BState);
+  const [mounted, setMounted] = useState(false);
+  
   const round1AStatus = round1AState?.status || (round1AState?.active ? (round1AState?.current_question_id ? 'QUESTION_DISPLAYED' : 'ROUND_STARTED_WAITING') : 'ROUND_NOT_STARTED');
 
   const isQuestionPhase =
@@ -51,6 +53,7 @@ export default function ParticipantDashboardPage() {
   }, []);
   
   useEffect(() => {
+    setMounted(true);
     let user = currentUser;
     if (!user) {
       user = getSavedSession('participant');
@@ -77,8 +80,12 @@ export default function ParticipantDashboardPage() {
   }, [currentUser, round1AStatus, round1BState.active, router]);
   
   const activeUser = currentUser || getSavedSession('participant');
-  if (!activeUser || !isParticipant(activeUser)) {
-    return null;
+  if (!mounted || !activeUser || !isParticipant(activeUser)) {
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="text-white">Loading...</div>
+      </div>
+    );
   }
   
   const team = teams.find((t) => t.id === activeUser.team_id);

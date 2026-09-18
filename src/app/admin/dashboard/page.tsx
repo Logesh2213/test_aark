@@ -16,8 +16,10 @@ export default function AdminDashboardPage() {
   const resetAllData = useStore((state) => state.resetAllData);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [resetting, setResetting] = useState(false);
+  const [mounted, setMounted] = useState(false);
   
   useEffect(() => {
+    setMounted(true);
     let user = currentUser;
     if (!user) {
       user = getSavedSession('admin');
@@ -32,8 +34,12 @@ export default function AdminDashboardPage() {
   }, [currentUser, router]);
   
   const activeUser = currentUser || getSavedSession('admin');
-  if (!activeUser || !isAdmin(activeUser)) {
-    return null;
+  if (!mounted || !activeUser || !isAdmin(activeUser)) {
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="text-white">Loading...</div>
+      </div>
+    );
   }
   
   const activeTeams = teams.filter((t) => t.active && !t.eliminated);
